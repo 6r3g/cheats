@@ -1,0 +1,17 @@
+% certutil
+
+# Generate and display a cryptographic hash over a file
+certutil.exe -hashfile <file> {{md2|md4|md5|sha1|sha256|sha384|sha512}}
+
+# Download and save an executable to disk in the current folder
+certutil.exe -urlcache -f https://<url>/<filename> <filename>
+
+# Encode a file using Base64
+certutil.exe -encode <filename> <filename>.base64
+
+# Decode a Base64 encoded file
+certutil.exe -decode <filename>.base64 <filename>
+
+
+$ file: ls
+$ hash: echo -e 'md2\nmd4\nmd5\nsha1\nsha256\nsha384\nsha512'
