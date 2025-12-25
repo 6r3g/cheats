@@ -4,7 +4,7 @@
 certutil.exe -hashfile <file> {{md2|md4|md5|sha1|sha256|sha384|sha512}}
 
 # Download and save an executable to disk in the current folder
-certutil.exe -urlcache -f https://<url>/<filename> <filename>
+certutil.exe -urlcache -f https://<urn> <filename>
 
 # Encode a file using Base64
 certutil.exe -encode <filename> <filename>.base64
