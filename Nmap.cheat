@@ -1,0 +1,26 @@
+% nmap
+
+# Which hosts are alive
+nmap -sn <ip_range>
+
+# Default scan with services info
+nmap -sCV <ip>
+
+# Default scan with services info + low rate
+nmap --max-rate 100 -sCV <ip>
+
+# Default scan with services info + export
+nmap -sCV -oA <output_file> <ip> 
+
+# Quick scan top 100 ports
+nmap --top-ports 100 --open -sV <ip>
+
+# Long scan top 5000 ports
+nmap --top-ports 5000 --open -sV <ip>
+
+# All ports
+nmap -p- -sV <ip>
+
+# Default UDP scan 
+nmap -sU <ip>
+

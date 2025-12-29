@@ -1,2 +1,20 @@
 % powershell
 
+# Download a file
+powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile "(New-Object System.Net.WebClient).DownloadFile('http://<server>/<source_file>','<dest_file>')"
+
+# Get computer name
+$env:computername
+
+# Get ip address
+Get-NetIPAddress -ifIndex $(Get-NetRoute -DestinationPrefix "0.0.0.0/0" | Select-Object -ExpandProperty "ifIndex") | Select-Object -ExpandProperty "IPAddress"
+
+# Get listening ports and established connexions (local)
+Get-NetTCPConnection -State Listen,Established -LocalAddress <ip>,0.0.0.0 | Select-Object -Property * | Select-Object State,LocalAddress,LocalPort,RemoteAddress,RemotePort,@{Name="Process";Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | Sort-Object -Property State,LocalAddress | ft
+
+# Get listening ports and established connexions (winrm)
+Invoke-Command -ComputerName <hostname> {Get-NetTCPConnection -State Listen,Established -LocalAddress <ip>,0.0.0.0 | Select-Object -Property * |  Select-Object State,LocalAddress,LocalPort,RemoteAddress,RemotePort,@{Name="Process";Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | Sort-Object -Property State,LocalAddress | ft}
+
+# Get user's manager emailaddress
+Get-ADUser (Get-ADUser <user> -Properties manager).manager -Properties EmailAddress | Select-Object EmailAddress -ExpandProperty EmailAddress 
+
