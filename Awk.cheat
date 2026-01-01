@@ -1,2 +1,65 @@
 % awk
+; https://gist.github.com/Rafe/3102414
 
+# Count lines (emulates "wc -l")
+awk 'END{print NR}' <file>
+
+# print the first 2 fields, in opposite order, of every line
+awk '{print $2, $1}' <file>
+
+# print any line where field #5 is equal to "abc123"
+awk '$5 == "abc123"' <file>
+
+# grep for AAA and BBB and CCC (in any order on the same line)
+awk '/AAA/ && /BBB/ && /CCC/'
+
+# grep for AAA and BBB and CCC (in that order)
+awk '/AAA.*BBB.*CCC/'
+
+# print only lines of 65 characters or longer
+awk 'length > 64'
+
+# print section of file based on line numbers (lines 8-12, inclusive)
+awk 'NR==8,NR==12'
+
+# Print the total number of lines that contain "Beth"
+awk '/Beth/{n++}; END {print n+0}' <file>
+
+# Print the last field of each line
+awk '{ print $NF }' <file>
+
+# Print the last field of the last line
+awk '{ field = $NF }; END{ print field }' <file>
+
+# Print every line with more than 4 fields
+awk 'NF > 4' <file>
+
+# Print every line where the value of the last field is > 4
+awk '$NF > 4' <file>
+
+# Substitute (find and replace) "foo" with "bar" on each line only 1st instance
+awk '{sub(/foo/,"bar")}; 1' <file>
+
+# Substitute (find and replace) "foo" with "bar" on each line only ALL instance
+awk '{gsub(/foo/,"bar")}; 1' <file>
+
+# Substitute "foo" with "bar" ONLY for lines which contain "baz"
+awk '/baz/{gsub(/foo/, "bar")}; 1' <file>
+
+# Substitute "foo" with "bar" EXCEPT for lines which contain "baz"
+awk '!/baz/{gsub(/foo/, "bar")}; 1' <file>
+
+# Change "scarlet" or "ruby" or "puce" to "red"
+awk '{gsub(/scarlet|ruby|puce/, "red")}; 1' <file>
+
+# delete ALL blank lines from a file (same as "grep '.' ")
+awk '/./' <file>
+
+# remove duplicate, consecutive lines (emulates "uniq")
+awk 'a !~ $0; {a=$0}' <file>
+
+# remove duplicate, nonconsecutive lines (most concise)
+awk '!a[$0]++' <file>
+
+# remove duplicate, nonconsecutive lines (most efficient)
+awk '!($0 in a){a[$0];print}' <file>
