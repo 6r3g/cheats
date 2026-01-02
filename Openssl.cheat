@@ -1,6 +1,6 @@
 % openssl, certificate, encryption
 
-## General OpenSSL Commands
+; General OpenSSL Commands
 # Create a new signing request and key
 openssl req -new -newkey rsa:<RSA_LENGTH> -nodes -out <OUTPUT_CSR> -keyout <OUTPUT_KEY>
 
@@ -18,7 +18,7 @@ openssl rsa -in <INPUT_KEY> -out <OUTPUT_PLAINTEXT_KEY>
 
 
 
-## Converting between the different encoding
+; Converting between the different encoding
 # Convert a DER encoded file to a PEM encoded file
 openssl x509 -inform der -in <INPUT_CRT> -out <OUTPUT_PEM>
 
