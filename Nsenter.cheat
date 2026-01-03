@@ -1,24 +1,24 @@
 % nsenter
 
 # Run a specific command using the same namespaces as an existing process (most concise)
-nsenter --target <pid> --all <command>
+sudo nsenter --target <pid> --all <command>
 
 # Run a specific command using the same namespaces as an existing process (most explicite)
-nsenter --target <pid> --mount --uts --ipc --pid --net --cgroup <command>
+sudo nsenter --target <pid> --mount --uts --ipc --pid --net --cgroup <command>
 
 # Run a specific command in an existing process's network namespace
-nsenter --target <pid> --net <command>
+sudo nsenter --target <pid> --net <command>
 
 # Run a specific command in an existing process's PID namespace
-nsenter --target <pid> --pid <command>
+sudo nsenter --target <pid> --pid <command>
 
 # Run a specific command in an existing process's IPC namespace
-nsenter --target <pid> --ipc <command>
+sudo nsenter --target <pid> --ipc <command>
 
 # Run a specific command in an existing process's UTS, time, and IPC namespaces
-nsenter --target <pid> --uts --time --ipc -- <command>
+sudo nsenter --target <pid> --uts --time --ipc -- <command>
 
 # Run a specific command in an existing process's namespace by referencing procfs
-nsenter --pid=/proc/pid/pid/net -- <command>
+sudo nsenter --pid=/proc/pid/pid/net -- <command>
 
 $ pid: sudo lsns | fzf | awk '{print $4}'
