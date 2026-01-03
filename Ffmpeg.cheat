@@ -2,4 +2,8 @@
 ; https://opensource.com/article/17/6/ffmpeg-convert-media-file-formats
 ; https://ffmpeg.org/ffmpeg.html
 
+# Convert file format to another
+ffmpeg -i <filename_in> <filename_out>
 
+
+$ filename_in: ls *.{3g2,3gp,apng,avc,avi,avs,avs2,c2,cdxl,cgi,cif,dif,dv,f4v,flv,gif,h261,h263,h264,h265,h26l,hevc,idf,ism,isma,ismv,j2k,m4a,m4b,m4v,mj2,mjpeg,mjpg,mk3d,mka,mks,mkv,mov,mp3,mp4,mpo,mvi,obu,ogg,psp,qcif,rgb,v210,vc1,xl,yuv,yuv10} 2>/dev/null
