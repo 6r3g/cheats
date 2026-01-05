@@ -1,0 +1,78 @@
+% sed
+; https://karandeepsingh.ca/posts/sed-command-cheat-sheet-30-essential-one-liners/
+; https://gist.github.com/ssstonebraker/6140154
+
+# Adding line numbers
+sed = <file> | sed 'N;s/\n/\t/'
+
+# Add a leading angle bracket and space to each line (quote a message)
+sed 's/^/> /' <file>
+
+# Append text after a match
+sed '/pattern/a\new text' <file>
+
+# Applying multiple commands to same pattern
+sed '/pattern/{s/old/new/g; s/foo/bar/g}' <file>
+
+# Change "scarlet" or "ruby" or "puce" to "red"
+sed 's/scarlet/red/g;s/ruby/red/g;s/puce/red/g' <file>
+
+# Delete lines matching a pattern
+sed '/pattern/d' <file>
+
+# Delete leading angle bracket & space from each line (unquote a message)
+sed 's/^> //' <file>
+
+# Delete the 5th line 
+sed '5d' <file>
+
+# Delete a range of lines (5->10)
+sed '5,10d' <file>
+
+# Delete empty lines
+sed '/^$/d' <file>
+
+# Delete lines matching multiples pattern
+sed '/pattern1/d; /pattern2/d' <file>
+
+# Insert text before a match
+sed '/pattern/i\new text' <file>
+
+# Print specific lines only
+sed -n '/pattern/p' <file>
+
+# Removing leading whitespace
+sed 's/^[ \t]*//' <file>
+
+# Removing trailing whitespace
+sed 's/[ \t]*$//' <file>
+
+# Replace an entire line on match
+sed '/pattern/c\new line' <file>
+
+# Substitute (find and replace) "foo" with "bar" only 1st instance in a line
+sed 's/foo/bar/' <file>
+
+# Substitute (find and replace) "foo" with "bar" only 4th instance in a line
+sed 's/foo/bar/4' <file>
+
+# Substitute (find and replace) "foo" with "bar" ALL instances in a line
+sed 's/foo/bar/g' <file>
+
+# Substitute (find and replace) "foo" with "bar" ALL instances in a line (case insensitive)
+sed 's/foo/bar/gi' <file>
+
+# Substitute (find and replace) "foo" with "bar" only the last case
+sed 's/\(.*\)foo/\1bar/' <file>
+
+# Substitute "foo" with "bar" ONLY for lines which contain "baz"
+sed '/baz/s/foo/bar/g' <file>
+
+# Substitute "foo" with "bar" EXCEPT for lines which contain "baz"
+sed '/baz/!s/foo/bar/g' <file>
+
+# Swapping the order of two words
+sed 's/\(word1\) \(word2\)/\2 \1/g' <file>
+
+# If a line ends with a backslash, append the next line to it
+sed -e :a -e '/\\$/N; s/\\\n//; ta' <file>

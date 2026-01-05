@@ -1,0 +1,10 @@
+% chisel
+
+; https://github.com/jpillora/chisel
+
+# Launch chisel server on 8000
+chisel server -p 8000 --reverse &
+
+# From target, initiate reverse port forwarding on port1 and port2
+chisel client <server_ip>:8000 R:<port1>:127.0.0.1:<port1> R:<port2>:127.0.0.1:<port2> &
+

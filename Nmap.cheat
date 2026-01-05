@@ -21,6 +21,9 @@ nmap --top-ports 5000 --open -sV <ip>
 # All ports
 nmap -p- -sV <ip>
 
+# All ports + high rate (ctf)
+nmap -p- --min-rate 10000 <ip>
+
 # Default UDP scan 
 nmap -sU <ip>
 
