@@ -1,5 +1,5 @@
 % jq
 
-# Print value of field in array
+# Print raw value of field in array
 jq -r '.<path>.<array>[] | .<field>'
 
