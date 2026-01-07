@@ -1,0 +1,11 @@
+% find
+
+# Lists files with a specific extension that are older than x days
+find /<path> -name "*.<ext>" -type f -mtime +<days>
+
+# Count files with a specific extension that are older than x days
+find /<path> -name "*.<ext>" -type f -mtime +<days> | wc -l
+
+# Delete files with a specific extension that are older than x days
+find /<path> -name "*.<ext>" -type f -mtime +<days> -delete 
+
