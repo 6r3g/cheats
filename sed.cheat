@@ -2,7 +2,7 @@
 ; https://karandeepsingh.ca/posts/sed-command-cheat-sheet-30-essential-one-liners/
 ; https://gist.github.com/ssstonebraker/6140154
 
-# Adding line numbers
+# Add line numbers
 sed = <file> | sed 'N;s/\n/\t/'
 
 # Add a leading angle bracket and space to each line (quote a message)
@@ -11,7 +11,7 @@ sed 's/^/> /' <file>
 # Append text after a match
 sed '/pattern/a\new text' <file>
 
-# Applying multiple commands to same pattern
+# Apply multiple commands to same pattern
 sed '/pattern/{s/old/new/g; s/foo/bar/g}' <file>
 
 # Change "scarlet" or "ruby" or "puce" to "red"
