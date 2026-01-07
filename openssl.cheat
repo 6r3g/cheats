@@ -16,8 +16,6 @@ openssl x509 -x509toreq -out <OUTPUT_CSR> -in <INPUT_CRT> -signkey <INPUT_KEY>
 # Remove a passphrase from a private key
 openssl rsa -in <INPUT_KEY> -out <OUTPUT_PLAINTEXT_KEY>
 
-
-
 ; Converting between the different encoding
 # Convert a DER encoded file to a PEM encoded file
 openssl x509 -inform der -in <INPUT_CRT> -out <OUTPUT_PEM>
@@ -37,9 +35,7 @@ openssl pkcs12 -in <INPUT_PKCS12> -out <OUTPUT_PEM> -nodes -nokeys
 # Convert a PEM certificate file and a private key to PKCS12 encoded file
 openssl pkcs12 -export -out <OUTPUT_PKCS12> -inkey <INPUT_KEY> -in <INPUT_CRT> -certfile <INPUT_CRT>
 
-
-
-## Validating certificates and keys using OpenSSL
+; Validating certificates and keys using OpenSSL
 # Validate a certificate signing request
 openssl req -text -noout -verify -in <OUTPUT_CSR>
 
@@ -52,9 +48,7 @@ openssl x509 -in <INPUT_CRT> -text -noout
 # Validate a PKCS12 file (.pfx or .p12)
 openssl pkcs12 -info -in <INPUT_PKCS12>
 
-
-
-## Debugging using OpenSSL
+; Debugging using OpenSSL
 # Compare the MD5 hash of a certificate
 openssl x509 -noout -modulus -in <INPUT_CRT> | openssl md5
 
@@ -67,13 +61,26 @@ openssl req -noout -modulus -in <INPUT_CSR> | openssl md5
 # Display the server certificate chain
 openssl s_client -connect <URL>:<PORT>
 
+# Check an smtp connexion and show cert
+openssl s_client -connect <fqdn>:25 -starttls smtp -showcerts
 
+# Check an ldap starttls connexion and show cert
+openssl s_client -connect <fqdn>:389 -starttls ldap -showcerts
 
-# Sensible/common default alternatives
+# Check an ldaps connexion and show cert
+openssl s_client -connect <fqdn>:636 -showcerts
+
+# Grab a cert from server
+openssl s_client -showcerts -connect <fqdn>:443 < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+
+# Show authority who sign a cert
+echo '' | openssl s_client -connect <fqdn>:443 2>/dev/null | openssl x509 -noout -issuer -nameopt multiline | grep organizationName | cut -d "=" -f2 | sed -ne 's/ //p'
+
+; Sensible/common default alternatives
 $ VALIDITY: printf "DAYS\tCOMMENT\n1\ta day\n30\ta month\n365\ta year\n730\ttwo years" --- --column 1 --headers 1
 $ RSA_LENGTH: printf "KEY LENGTH\tCOMMENT\n2048\t\tDefault\n4096\t\tBetter\n8192\t\tSlow?" --- --column 1 --headers 1
 
-# Attempt to find files with the appropriate endings, default to everything.
+; Attempt to find files with the appropriate endings, default to everything.
 $ INPUT_PKCS12: ls -a | grep -e "\(.pfx\|.p12\)"       || ls -a
 $ INPUT_CSR:    ls -a | grep -e "\(.csr\)"             || ls -a
 $ INPUT_KEY:    ls -a | grep -e "\(.key\|.pem\)"       || ls -a
