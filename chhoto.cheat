@@ -1,0 +1,27 @@
+% chhoto
+; Assume => alias chhoto='chhoto --api-key $CHHOTO_API_KEY --url $CHHOTO_URL'
+
+# Create new short link without expiry
+chhoto new <long_url> <short_code>
+
+# Create new short link with 1 hour expiry
+chhoto new <long_url> <short_code> 3600
+
+# Create new short link with random slug and without expiry
+chhoto new <long_url>
+
+# Create new short link with random slug with 1 hour expiry
+chhoto new <long_url> 3600
+
+# Delete a given short link
+chhoto delete <short_code>
+
+# Prints info about a particular shorturl (target,hits,expiry)
+chhoto expand <short_code>
+
+# Prints info about all shorturls in the server (code,target,hits,expiry)
+chhoto getall
+
+# Prints the backend config
+chhoto getconfig
+
