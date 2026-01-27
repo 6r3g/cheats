@@ -1,4 +1,5 @@
 % chhoto
+; https://github.com/SinTan1729/chhoto-url-cli
 ; Assume => alias chhoto='chhoto --api-key $CHHOTO_API_KEY --url $CHHOTO_URL'
 
 # Create new short link without expiry
