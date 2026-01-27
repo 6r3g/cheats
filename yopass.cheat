@@ -1,0 +1,14 @@
+% yopass
+; https://github.com/jhaals/yopass
+; Assume default use of 'https://api.yopass.se' and 'https://yopass.se'
+; If private instance, assume 'alias yopass=yopass --api $MY_YOPASS_API --url $MY_YOPASS_URL'
+; or env like YOPASS_API=<url> and YOPASS_URL=<url>
+
+# Encrypt and share secret from stdin for 1h with "burn after reading"
+printf '<secret>' | yopass
+
+# Encrypt and share file content multiple time a whole day without "burn after reading"
+cat <file_path> | yopass --expiration=1d --one-time=false
+
+# Decrypt secret to stdout
+yopass --decrypt <link>
