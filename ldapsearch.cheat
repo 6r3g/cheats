@@ -1,5 +1,5 @@
 % ldapsearch
 
-# Simple ldaps RootDSE query
+# Simple ldaps RootDSE query.
 ldapsearch -H ldaps://<FQDN>:636 -D "<DN_USER>" -W -b "<DN_DOMAIN>" "(objectClass=computer)" cn -LLL -z 5
 
