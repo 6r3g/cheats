@@ -4,22 +4,22 @@
 # Count lines (emulates "wc -l")
 awk 'END{print NR}' <file>
 
-# print the first 2 fields, in opposite order, of every line
+# Print the first 2 fields, in opposite order, of every line
 awk '{print $2, $1}' <file>
 
-# print any line where field #5 is equal to "abc123"
+# Print any line where field #5 is equal to "abc123"
 awk '$5 == "abc123"' <file>
 
-# grep for AAA and BBB and CCC (in any order on the same line)
+# Grep for AAA and BBB and CCC (in any order on the same line)
 awk '/AAA/ && /BBB/ && /CCC/'
 
-# grep for AAA and BBB and CCC (in that order)
+# Grep for AAA and BBB and CCC (in that order)
 awk '/AAA.*BBB.*CCC/'
 
-# print only lines of 65 characters or longer
+# Print only lines of 65 characters or longer
 awk 'length > 64'
 
-# print section of file based on line numbers (lines 8-12, inclusive)
+# Print section of file based on line numbers (lines 8-12, inclusive)
 awk 'NR==8,NR==12'
 
 # Print the total number of lines that contain "Beth"
@@ -52,14 +52,14 @@ awk '!/baz/{gsub(/foo/, "bar")}; 1' <file>
 # Change "scarlet" or "ruby" or "puce" to "red"
 awk '{gsub(/scarlet|ruby|puce/, "red")}; 1' <file>
 
-# delete ALL blank lines from a file (same as "grep '.' ")
+# Delete ALL blank lines from a file (same as "grep '.' ")
 awk '/./' <file>
 
-# remove duplicate, consecutive lines (emulates "uniq")
+# Remove duplicate, consecutive lines (emulates "uniq")
 awk 'a !~ $0; {a=$0}' <file>
 
-# remove duplicate, nonconsecutive lines (most concise)
+# Remove duplicate, nonconsecutive lines (most concise)
 awk '!a[$0]++' <file>
 
-# remove duplicate, nonconsecutive lines (most efficient)
+# Remove duplicate, nonconsecutive lines (most efficient)
 awk '!($0 in a){a[$0];print}' <file>
