@@ -1,2 +1,4 @@
 % xfreerdp
 
+# Connect 
+xfreerdp /v:<ip> /u:Administrateur /size:1600x900 /tls-seclevel:0 /kbd:0x0000040C -grab-keyboard -sec-nla
