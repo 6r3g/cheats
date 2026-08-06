@@ -1,24 +1,25 @@
 % nsenter
 
 # Run a specific command using the same namespaces as an existing process (most concise)
-sudo nsenter --target <pid> --all <command>
+sudo nsenter --target <container_pid> --all <command>
 
 # Run a specific command using the same namespaces as an existing process (most explicite)
-sudo nsenter --target <pid> --mount --uts --ipc --pid --net --cgroup <command>
+sudo nsenter --target <container_pid> --mount --uts --ipc --pid --net --cgroup <command>
 
 # Run a specific command in an existing process's network namespace
-sudo nsenter --target <pid> --net <command>
+sudo nsenter --target <container_pid> --net <command>
 
 # Run a specific command in an existing process's PID namespace
-sudo nsenter --target <pid> --pid <command>
+sudo nsenter --target <container_pid> --pid <command>
 
 # Run a specific command in an existing process's IPC namespace
-sudo nsenter --target <pid> --ipc <command>
+sudo nsenter --target <container_pid> --ipc <command>
 
 # Run a specific command in an existing process's UTS, time, and IPC namespaces
-sudo nsenter --target <pid> --uts --time --ipc -- <command>
+sudo nsenter --target <container_pid> --uts --time --ipc -- <command>
 
 # Run a specific command in an existing process's namespace by referencing procfs
 sudo nsenter --pid=/proc/pid/pid/net -- <command>
 
-$ pid: sudo lsns | fzf | awk '{print $4}'
+$ container_id: docker ps --- --headers 1 --column 1
+$ container_pid: docker inspect -f '{{ .State.Pid }}' <container_id>
