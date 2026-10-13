@@ -36,6 +36,9 @@ docker ps
 # Delete all running and stopped containers
 docker rm -f $(docker ps -aq)
 
+# Delete all exited containers
+docker rm $(docker ps -q --filter status=exited)
+
 # Create a new bash process inside the container and connect it to the terminal
 docker exec -it <container_id> bash
 
